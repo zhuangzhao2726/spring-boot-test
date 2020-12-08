@@ -6,6 +6,7 @@ import com.zhuangzhao.jdk.proxy.impl.HelloImpl;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
@@ -30,6 +31,10 @@ public class MyProxyTest {
         Hello Hello1 = (Hello) constructor.newInstance(new MyInvocationHandler(new HelloImpl()));
         // 5、通过代理对象调用目标方法
         Hello1.sayHello();
+
+
+        Object proxyInstance = Proxy.newProxyInstance(Hello.class.getClassLoader(), HelloImpl.class.getInterfaces(), new MyInvocationHandler(new HelloImpl()));
+
 
         // ==========================第二种=============================
         /**
