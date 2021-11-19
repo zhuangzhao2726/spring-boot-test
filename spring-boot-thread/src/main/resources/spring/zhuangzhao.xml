@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <beans>
+        <bean id="zhuangzhao" class="com.zhuangzhao.spring.boot.model.User">
+            <property name="userName" value="zhuangzhao"/>
+            <property name="age" value="1"/>
+        </bean>
+
+
+
+        <bean id="userService" class="com.zhuangzhao.spring.boot.aop.UserServiceImpl"/>
+
+        <bean id="logArgAdvice" class="com.zhuangzhao.spring.boot.aop.LogArgAdvice"/>
+        <bean id="logResultAdvice" class="com.zhuangzhao.spring.boot.aop.LogResultAdvice"/>
+
+        <bean id="userServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+            <!--代理的接口-->
+            <property name="proxyInterfaces">
+                <list>
+                    <value>com.zhuangzhao.spring.boot.aop.UserService</value>
+                </list>
+            </property>
+            <property name="target" ref="userService"/>
+            <property name="interceptorNames">
+                <list>
+                    <value>logArgAdvice</value>
+                    <value>logResultAdvice</value>
+                </list>
+            </property>
+        </bean>
+
+        <bean id="logCreateAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+
+        </bean>
+    </beans>
+
+</beans>
