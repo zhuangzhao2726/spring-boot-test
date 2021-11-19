@@ -14,14 +14,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ProducerConfig {
 
-    @Value("${rocketmq.producer.namesrvAddr:8.142.87.181:9876}")
-    private String namesrvAddr;
+    @Value("${rocketmq.producer.nameSrvAddr:8.142.87.181:9876}")
+    private String nameSrvAddr;
 
 
     @Bean
     public MQProducer producer() {
         DefaultMQProducer prooducer = new DefaultMQProducer("zhuangzhao_test_prooducer");
-        prooducer.setNamesrvAddr(namesrvAddr);
+        prooducer.setNamesrvAddr(nameSrvAddr);
         try {
             prooducer.start();
         } catch (MQClientException e) {
